@@ -11,7 +11,8 @@ int main()
 
     // min() returns the minimal value in the matrix.
   /*if (min(m1) < min(m3))
-    cout << "Min value of m3 is bigger";*/
+    */
+    cout << "Min value of m3 is bigger";
 
     return 0;
 }
