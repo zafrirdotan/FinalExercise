@@ -9,7 +9,7 @@ Matrix<T, sizeX,sizeY>::Matrix( T initialValue):
     matrix_(new T*[sizeX]),rowLength(sizeX), colLength(sizeY) {
     for(int i = 0; i< rowLength; i++){
          matrix_[i] = new T[colLength];
-         for(int j = 0; i<colLength; i++){
+         for(int j = 0; j<colLength; j++){
             matrix_[i][j] = initialValue;
          }
     }
@@ -39,14 +39,14 @@ template <typename T, int sizeX, int sizeY>
     deleteMat();
     rowLength = rhs.rowLength;
     colLength = rhs.colLength;
-    metrix_(new T*[rowLength]);
+    matrix_=new T*[rowLength];
     for(int i = 0; i< rowLength; i++){
          matrix_[i] = new T[colLength];
-         for(int j = 0; i<colLength; i++){
+         for(int j = 0; j<colLength; j++){
             matrix_[i][j] = rhs. matrix_[i][j];
          }
     }
-    return this*;
+    return *this;
 
  };
 

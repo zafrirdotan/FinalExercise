@@ -11,7 +11,6 @@ class Matrix
         ~Matrix();
         Matrix(const Matrix& other);
         Matrix& operator=(const Matrix& other);
-    protected:
 
     private:
         T** matrix_;
