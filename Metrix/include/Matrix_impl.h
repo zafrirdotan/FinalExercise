@@ -50,7 +50,35 @@ template <typename T, int sizeX, int sizeY>
 
  };
 
+ template <typename T, int sizeX, int sizeY>
+ T Matrix<T, sizeX, sizeY>::avg()
+ {
+	 T sum = 0;
+	 for (int i = 0; i< rowLength; i++) {
+		 matrix_[i] = new T[colLength];
+		 for (int j = 0; j<colLength; j++) {
+			 sum += matrix_[i][j];
+		 }
+	 }
+	 return sum / (rowLength + colLength);
+ }
 
+template <typename T, int sizeX, int sizeY>
+T Matrix<T, sizeX, sizeY>::min()
+ {
+	 T minNumber = matrix[0][0];
+	 for (int i = 0; i < matrix.rowLength; i++)
+	 {
+		 for (int j = 0; j < matrix.colLength; j++)
+		 {
+			 if (matrix[i][j] < minNumber)
+			 {
+				 minNumber = matrix[i][j];
+			 }
+		 }
+	 }
+	 return minNumber;
+ }
 
 template <typename T, int sizeX, int sizeY>
 void Matrix<T, sizeX,sizeY>::deleteMat(){

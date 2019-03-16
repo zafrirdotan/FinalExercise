@@ -11,6 +11,8 @@ class Matrix
         ~Matrix();
         Matrix(const Matrix& other);
         Matrix& operator=(const Matrix& other);
+		T avg();
+		T min();
 
     private:
         T** matrix_;
