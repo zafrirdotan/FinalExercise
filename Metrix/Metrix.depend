@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1552737815 source:c:\dev\tcsd\c++\metrix\main.cpp
+	<iostream>
+	"Matrix_impl.h"
+
+1552741962 c:\dev\tcsd\c++\metrix\include\matrix.h
+
+1552732590 source:c:\dev\tcsd\c++\metrix\src\matrix.cpp
+	"Matrix.h"
+
+1552741971 c:\dev\tcsd\c++\metrix\include\matrix_impl.h
+	"Matrix.h"
+
