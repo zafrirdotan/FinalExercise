@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
-template <typename T, int length, int width>
+#include <iostream>
+
+template <typename T, int sizeX, int sizeY>
 class Matrix
 {
     public:
