@@ -7,8 +7,14 @@
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
 	_matrix(new T*[sizeX]), rowLength(sizeX), colLength(sizeY)
+	_flags(new bool*[sizeX])
 	{
 		defultValue = initialValue;
+		for (int i = 0; i < rowLength; i++)
+		{
+			_matrix[i] = new T[colLength]; // do not answer the reuirments !!!!
+			_flags[i] = new bool[colLength]; // do not answer the reuirments !!!!
+		}
 	}
 
 // Default constructor
