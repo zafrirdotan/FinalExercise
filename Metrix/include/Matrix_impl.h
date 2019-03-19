@@ -5,20 +5,15 @@
 #include <iostream>
 // Main constructor
 template <typename T, int sizeX, int sizeY>
-Matrix<T, sizeX,sizeY>::Matrix( T initialValue):
-    matrix_(new T*[sizeX]),rowLength(sizeX), colLength(sizeY) {
-    for(int i = 0; i< rowLength; i++){
-         matrix_[i] = new T[colLength];
-         for(int j = 0; j<colLength; j++){
-            matrix_[i][j] = initialValue;
-         }
-    }
-}
+Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
+	_matrix(new T*[sizeX]), rowLength(sizeX), colLength(sizeY)
+	{
+		defultValue = initialValue;
+	}
+
 // Default constructor
 template <typename T, int sizeX, int sizeY>
-Matrix<T, sizeX,sizeY>::Matrix(): Matrix(0){
-
-}
+Matrix<T, sizeX,sizeY>::Matrix(): Matrix(0){}
 
 // Destructor
 template <typename T, int sizeX, int sizeY>
@@ -29,21 +24,21 @@ Matrix<T, sizeX,sizeY>::~Matrix()
 
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX,sizeY>::Matrix(const Matrix& other)
-     :rowLength(0),colLength(0), matrix_(NULL) {
+     :rowLength(0),colLength(0), _matrix(NULL) {
   *this = other;
 }
 
 template <typename T, int sizeX, int sizeY>
- Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator=(const Matrix& rhs){
-    if (this == &rhs) return *this;
+ Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator=(const Matrix& other){
+    if (this == &other) return *this;
     deleteMat();
-    rowLength = rhs.rowLength;
-    colLength = rhs.colLength;
-    matrix_=new T*[rowLength];
+    rowLength = other.rowLength;
+    colLength = other.colLength;
+    _matrix=new T*[rowLength];
     for(int i = 0; i< rowLength; i++){
-         matrix_[i] = new T[colLength];
+         _matrix[i] = new T[colLength];
          for(int j = 0; j<colLength; j++){
-            matrix_[i][j] = rhs. matrix_[i][j];
+            _matrix[i][j] = other. _matrix[i][j];
          }
     }
     return *this;
@@ -55,9 +50,9 @@ template <typename T, int sizeX, int sizeY>
  {
 	 T sum = 0;
 	 for (int i = 0; i< rowLength; i++) {
-		 matrix_[i] = new T[colLength];
+		 _matrix[i] = new T[colLength];
 		 for (int j = 0; j<colLength; j++) {
-			 sum += matrix_[i][j];
+			 sum += _matrix[i][j];
 		 }
 	 }
 	 return sum / (rowLength + colLength);
@@ -65,28 +60,28 @@ template <typename T, int sizeX, int sizeY>
 
 template <typename T, int sizeX, int sizeY>
 T Matrix<T, sizeX, sizeY>::min()
- {
-	 T minNumber = matrix[0][0];
+{
+	 T minElement = matrix[0][0];
 	 for (int i = 0; i < matrix.rowLength; i++)
 	 {
 		 for (int j = 0; j < matrix.colLength; j++)
 		 {
-			 if (matrix[i][j] < minNumber)
+			 if (matrix[i][j] < minElement)
 			 {
-				 minNumber = matrix[i][j];
+				 minElement = matrix[i][j];
 			 }
 		 }
 	 }
-	 return minNumber;
+	 return minElement;
  }
 
 template <typename T, int sizeX, int sizeY>
 void Matrix<T, sizeX,sizeY>::deleteMat(){
   for(int i = 0; i< rowLength; i++){
-        delete[] matrix_[i];
+        delete[] _matrix[i];
     }
-    delete[] matrix_;
+    delete[] _matrix;
  }
-#endif // MATRIX_IMPL_H_INCLUDED
+#endif // _matrixIMPL_H_INCLUDED
 
 
