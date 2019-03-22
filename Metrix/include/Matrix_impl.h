@@ -50,6 +50,29 @@ template <typename T, int sizeX, int sizeY>
 
  };
 
+template <typename T, int sizeX, int sizeY>
+const T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) const {
+  return const_cast<Matrix<T, sizeX,sizeY>*>(this)->operator()(x, y);
+}
+
+template <typename T, int sizeX, int sizeY>
+    T&  Matrix<T, sizeX,sizeY>::operator()(int x,int y) {
+  return matrix_[x][y];
+}
+
+/*
+template <typename T, int sizeX, int sizeY>
+const T*& Matrix<T, sizeX,sizeY>::operator[](int &index) const {
+  return const_cast<Matrix<T, sizeX,sizeY>*>(this)->operator[](index);
+
+}
+template <typename T, int sizeX, int sizeY>
+    T*&  Matrix<T, sizeX,sizeY>::operator[](int &index) {
+  return matrix_[index];
+}
+*/
+
+
 
 
 template <typename T, int sizeX, int sizeY>

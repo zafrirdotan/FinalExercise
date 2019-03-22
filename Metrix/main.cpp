@@ -14,5 +14,20 @@ int main()
     */
     cout << "Min value of m3 is bigger";
 
+    Matrix<int, 3, 3> m4;
+    m4 = m3;
+      for (int i = 0; i < 3; ++i){
+        for (int j = 0; j < 3; ++j){
+          m4(i, j) = i+j;
+        }
+      }
+  cout << "m4[1][1] = " << m4(1,1);  // m4(1,1) same result as m4[1][1]
+      /*
+    cout << "m3[1][1] = " << m3[1][1];
+*/
+    Matrix<int, 3, 3> m5(3);
+    m5 = 2 * m4;
+
+
     return 0;
 }

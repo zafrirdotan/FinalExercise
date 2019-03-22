@@ -12,6 +12,11 @@ class Matrix
         Matrix(const Matrix& other);
         Matrix& operator=(const Matrix& other);
 
+        const T& operator()(int x,int y) const;
+        T& operator()(int x,int y);
+
+        const T*& operator[](int &index) const;
+        T*& operator[](int &index);
     private:
         T** matrix_;
         void deleteMat();
