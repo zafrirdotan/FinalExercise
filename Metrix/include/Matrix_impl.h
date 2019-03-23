@@ -3,6 +3,7 @@
 #define MATRIX_IMPL_H_INCLUDED
 #include "Matrix.h"
 #include <iostream>
+using namespace std;
 // Main constructor
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
@@ -12,8 +13,8 @@ Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
 		_defultValue = initialValue;
 		for (int i = 0; i < rowLength; i++)
 		{
-			_matrix[i] = new T[colLength]; 
-			_flags[i] = new bool[colLength]; 
+			_matrix[i] = new T[colLength];
+			_flags[i] = new bool[colLength];
 		}
 	}
 
@@ -67,8 +68,7 @@ template <typename T, int sizeX, int sizeY>
  {
 	 T sum = 0;
 	 for (int i = 0; i< rowLength; i++) {
-		 _matrix[i] = new T[colLength];
-		 for (int j = 0; j<colLength; j++) {
+		 for (int j = 0; j< colLength; j++) {
 			 if (_flags[i][j] == true)
 			 {
 				 sum += _matrix[i][j];
@@ -77,10 +77,10 @@ template <typename T, int sizeX, int sizeY>
 			 {
 				 sum += _defultValue;
 			 }
-			 
+
 		 }
 	 }
-	 return sum / (rowLength + colLength);
+	 return sum / (rowLength * colLength);
  }
 
 
@@ -109,6 +109,25 @@ T Matrix<T, sizeX, sizeY>::min()
 		 }
 	 }
 	 return minElement;
+ }
+
+
+ template <typename T, int sizeX, int sizeY>
+ const Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator*(const int &number)const{
+
+    Matrix temp;
+
+    for (int i = 0; i < rowLength; ++i) {
+         for (int j = 0; j < colLength; ++j) {
+             if(_flags[i][j]){
+                temp._matrix[i][j] = temp._matrix[i][j] * number;
+             }else{
+                 temp._matrix[i][j] = number * _defultValue;
+                 cout << temp._matrix[i][j]<< endl;
+             }
+        }
+    }
+  return temp;
  }
 
 template <typename T, int sizeX, int sizeY>

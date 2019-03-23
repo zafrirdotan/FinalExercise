@@ -13,8 +13,8 @@ int main() {
 	//if (min(m1) < min(m3))
 		//cout << "Min value of m3 is bigger";
 
-	if (m1.avg() < m3.avg()) // Compares the average of the elements
-        cout << "Max value of m3 is bigger";
+	//if (m1.avg() < m3.avg()) // Compares the average of the elements
+      //  cout << "Max value of m3 is bigger";
 
 	m2(0, 0) = 13;
         cout << m2[0][0]<<" " << m2[1][0]; // Should print "13 4"
@@ -27,17 +27,19 @@ int main() {
 	//	cout << e.what();
 	//}
 
-	//Matrix<int, 3, 3> m4;
-	//m4 = m3;
+	Matrix<int, 3, 3> m4;
+	m4 = m3;
+    cout << " m4 =" << m4[2][2]<< endl;
 	//for (int i = 0; i < 3; ++i)
 	//	for (int j = 0; j < 3; ++j)
 	//		m4(i, j) = i + j;
 	//cout << "m3[1][1] = " << m3[1][1];
 	//cout << "m4[1][1] = " << m4(1, 1);  // m4(1,1) same result as m4[1][1]
 
-	//Matrix<int, 3, 3> m5(3);
-	//m5 = 2 * m4;
-
+	Matrix<int, 3, 3> m5(3);
+	//m5 = m4*2;
+	m5 = 2 * m4;
+    cout << " m5 =" << m5[2][2]<< endl;;
 	//Matrix<int, 3, 3> m6(m4);
 	//m5 += m4;
 
@@ -52,10 +54,6 @@ int main() {
 	//cout << (*symetric_matrix)[1][2] << " " << (*symetric_matrix)[2][1]; // Should print "8 8"
 
 	//return 0;
-
-		int x;
-		cin >> x;
-
 
 }
 

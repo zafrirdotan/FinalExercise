@@ -40,10 +40,15 @@ class Matrix
 		Matrix& operator=(const Matrix& other);
 		T avg();
 		T min();
+        const Matrix& operator*(const int &num)const;
+		const friend  Matrix operator *(const int & number,const Matrix &matrix)
+        {
+         return (matrix * number);
+        };
 
 		MatrixRow operator[](int index) {
 			return MatrixRow( _matrix[index], _flags[index], _defultValue);
-		}
+		};
 
         T& operator()(int x, int y) {
 			if (_flags[x][y] == true) {
