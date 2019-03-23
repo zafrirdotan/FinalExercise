@@ -7,7 +7,7 @@ class Matrix
 {
 	private:
 		T** _matrix;
-		T _defultValue;
+		T _defaultValue;
 		void deleteMat();
 		int rowLength;
 		int colLength;
@@ -38,23 +38,15 @@ class Matrix
 		~Matrix();
 		Matrix(const Matrix& other);
 		Matrix& operator=(const Matrix& other);
-		T avg();
-		T min();
-
-		MatrixRow operator[](int index) {
-			return MatrixRow( _matrix[index], _flags[index], _defultValue);
+		double avg()const;
+		T min()const;
+		friend ostream& operator <<(ostream& os, const Matrix& other);
+		MatrixRow operator[](int index)const {
+			return MatrixRow( _matrix[index], _flags[index], _defaultValue);
 		}
+		T& operator()(int x, int y);
 
-        T& operator()(int x, int y) {
-			if (_flags[x][y] == true) {
-				return _matrix[x][y];
-			}
-			else {
-				_matrix[x][y] = _defultValue;
-				_flags[x][y] = true;
-				return _matrix[x][y];
-			}
-		}
+		//class SymetricMatrix : private Matrix
 
 
 };
