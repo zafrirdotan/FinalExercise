@@ -12,8 +12,8 @@ Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
 		_defultValue = initialValue;
 		for (int i = 0; i < rowLength; i++)
 		{
-			_matrix[i] = new T[colLength]; // do not answer the reuirments !!!!
-			_flags[i] = new bool[colLength]; // do not answer the reuirments !!!!
+			_matrix[i] = new T[colLength]; 
+			_flags[i] = new bool[colLength]; 
 		}
 	}
 
@@ -69,7 +69,15 @@ template <typename T, int sizeX, int sizeY>
 	 for (int i = 0; i< rowLength; i++) {
 		 _matrix[i] = new T[colLength];
 		 for (int j = 0; j<colLength; j++) {
-			 sum += _matrix[i][j];
+			 if (_flags[i][j] == true)
+			 {
+				 sum += _matrix[i][j];
+			 }
+			 else
+			 {
+				 sum += _defultValue;
+			 }
+			 
 		 }
 	 }
 	 return sum / (rowLength + colLength);
@@ -84,9 +92,19 @@ T Matrix<T, sizeX, sizeY>::min()
 	 {
 		 for (int j = 0; j < _matrix.colLength; j++)
 		 {
-			 if (_matrix[i][j] < minElement)
+			 if (_flags[i][j] == true)
 			 {
-				 minElement = _matrix[i][j];
+				 if (_matrix[i][j] < minElement)
+				 {
+					 minElement = _matrix[i][j];
+				 }
+			 }
+			 else
+			 {
+				 if (_defultValue < minElement)
+				 {
+					 minElement = _defultValue;
+				 }
 			 }
 		 }
 	 }

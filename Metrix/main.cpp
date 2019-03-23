@@ -13,8 +13,8 @@ int main() {
 	//if (min(m1) < min(m3))
 		//cout << "Min value of m3 is bigger";
 
-	//if (m1.avg() < m3.avg()) // Compares the average of the elements
-      //  cout << "Max value of m3 is bigger";
+	if (m1.avg() < m3.avg()) // Compares the average of the elements
+        cout << "Max value of m3 is bigger";
 
 	m2(0, 0) = 13;
         cout << m2[0][0]<<" " << m2[1][0]; // Should print "13 4"
@@ -52,6 +52,10 @@ int main() {
 	//cout << (*symetric_matrix)[1][2] << " " << (*symetric_matrix)[2][1]; // Should print "8 8"
 
 	//return 0;
+
+		int x;
+		cin >> x;
+
 
 }
 

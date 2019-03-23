@@ -17,12 +17,12 @@ class Matrix
 				MatrixRow( T* row, bool* flags, T defaultValue) :
                     _row(row), _flags(flags), _defaultValue(defaultValue) {}
 				T& operator[](int colIndex) {
-					if (_flags[colIndex]) {
+					if (_flags[colIndex]==true) {
 						return _row[colIndex];
 					}
 					else {
 						_row[colIndex] = _defaultValue;
-						_flags[colIndex] = 1;
+						_flags[colIndex] = true;
 						return _row[colIndex];
 					}
 				}
@@ -46,7 +46,14 @@ class Matrix
 		}
 
         T& operator()(int x, int y) {
-			return _matrix[x][y];
+			if (_flags[x][y] == true) {
+				return _matrix[x][y];
+			}
+			else {
+				_matrix[x][y] = _defultValue;
+				_flags[x][y] = true;
+				return _matrix[x][y];
+			}
 		}
 
 
