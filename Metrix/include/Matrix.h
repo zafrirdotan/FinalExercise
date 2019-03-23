@@ -1,6 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 #include <iostream>
+using namespace std;
 
 template <typename T, int sizeX, int sizeY>
 class Matrix
@@ -26,6 +27,7 @@ class Matrix
 						return _row[colIndex];
 					}
 				}
+
 			private:
 				T* _row;
 				bool* _flags;

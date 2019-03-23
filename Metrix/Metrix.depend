@@ -11,7 +11,7 @@
 1552741971 c:\dev\tcsd\c++\metrix\include\matrix_impl.h
 	"Matrix.h"
 
-1553377957 source:c:\dev\tcsd\c++\c++ex\metrix\main.cpp
+1553379629 source:c:\dev\tcsd\c++\c++ex\metrix\main.cpp
 	<iostream>
 	"include\Matrix_impl.h"
 

@@ -30,11 +30,11 @@ int main() {
 	Matrix<int, 3, 3> m4;
 	m4 = m3;
     cout << "m4[2][2] = " << m4[2][2]<< endl;
-	//for (int i = 0; i < 3; ++i)
-	//	for (int j = 0; j < 3; ++j)
-	//		m4(i, j) = i + j;
-	//cout << "m3[1][1] = " << m3[1][1];
-	//cout << "m4[1][1] = " << m4(1, 1);  // m4(1,1) same result as m4[1][1]
+	for (int i = 0; i < 3; ++i)
+		for (int j = 0; j < 3; ++j)
+			m4(i, j) = i + j;
+	cout << "m3[1][1] = " << m3[1][1];
+	cout << "m4[1][1] = " << m4(1, 1)<< endl;  // m4(1,1) same result as m4[1][1]
 
 	Matrix<int, 3, 3> m5(3);
 	//m5 = m4*2;

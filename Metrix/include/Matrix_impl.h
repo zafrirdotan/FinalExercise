@@ -142,7 +142,6 @@ T Matrix<T, sizeX, sizeY>::min()
  Matrix<T, sizeX,sizeY> Matrix<T, sizeX,sizeY>::operator*(const int &number){
 
     Matrix<T, sizeX,sizeY> temp;
-        //cout << "number "<<number<< endl;
     for (int i = 0; i < rowLength; ++i) {
          for (int j = 0; j < colLength; ++j) {
             if(_flags[i][j]){
@@ -150,7 +149,6 @@ T Matrix<T, sizeX, sizeY>::min()
             }else{
                  temp[i][j] = number * _defultValue;
             }
-        //  cout << temp[i][j]<< endl;
         }
     }
   return temp;
