@@ -9,6 +9,8 @@ class Matrix
 		T** _matrix;
 		T _defultValue = 0;
 		void deleteMat();
+		int rowLength;
+		int colLength;
 		bool** _flags;
 		class MatrixRow {
 			public:
@@ -39,11 +41,14 @@ class Matrix
 		Matrix& operator=(const Matrix& other);
 		T avg();
 		T min();
-		int rowLength;
-		int colLength;
 		MatrixRow operator[](int index) {
 			return MatrixRow(index, _matrix[index], _flags, _defultValue);
 		}
+		/*
+        MatrixRow operator()(int x, int y) {
+			return MatrixRow(index, _matrix[index], _flags, _defultValue);
+		}
+		*/
 
 };
 

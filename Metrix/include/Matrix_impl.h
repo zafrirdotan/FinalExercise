@@ -30,7 +30,7 @@ Matrix<T, sizeX,sizeY>::~Matrix()
 
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX,sizeY>::Matrix(const Matrix& other)
-     :rowLength(0),colLength(0), _matrix(NULL) {
+     : _matrix(NULL),rowLength(0),colLength(0) {
   *this = other;
 }
 
@@ -50,13 +50,17 @@ template <typename T, int sizeX, int sizeY>
     return *this;
 
  };
+/*
+template <typename T, int sizeX, int sizeY>
+     T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) {
+        return Matrix[x][y];
+    }
 
-
-//template <typename T, int sizeX, int sizeY>
-//const T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) const {
-  //return const_cast<Matrix<T, sizeX,sizeY>*>(this)->operator()(x, y);
-//}
-
+template <typename T, int sizeX, int sizeY>
+    const T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) const {
+        return const_cast<Matrix<T, sizeX,sizeY>*>(this)->operator()(x, y);
+    }
+*/
 
  template <typename T, int sizeX, int sizeY>
  T Matrix<T, sizeX, sizeY>::avg()
@@ -70,6 +74,7 @@ template <typename T, int sizeX, int sizeY>
 	 }
 	 return sum / (rowLength + colLength);
  }
+
 
 template <typename T, int sizeX, int sizeY>
 T Matrix<T, sizeX, sizeY>::min()
