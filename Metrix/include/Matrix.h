@@ -7,18 +7,18 @@ class Matrix
 {
 	private:
 		T** _matrix;
-		T _defultValue = 0;
+		T _defultValue;
 		void deleteMat();
 		int rowLength;
 		int colLength;
 		bool** _flags;
 		class MatrixRow {
 			public:
-				MatrixRow(int rowIndex, T* row, bool* flags, T defaultValue) :
-					_rowIndex(rowIndex), _row(row), _flags(flags), _defaultValue(defaultValue) {}
+				MatrixRow( T* row, bool* flags, T defaultValue) :
+                    _row(row), _flags(flags), _defaultValue(defaultValue) {}
 				T& operator[](int colIndex) {
-					if (_flags[_rowIndex][colIndex]) {
-						return _row[_rowIndex][colIndex];
+					if (_flags[colIndex]) {
+						return _row[colIndex];
 					}
 					else {
 						_row[colIndex] = _defaultValue;
@@ -27,9 +27,8 @@ class Matrix
 					}
 				}
 			private:
-				int _rowIndex;
 				T* _row;
-				T* _flags;
+				bool* _flags;
 				T _defaultValue;
 		};
 
@@ -41,14 +40,15 @@ class Matrix
 		Matrix& operator=(const Matrix& other);
 		T avg();
 		T min();
+
 		MatrixRow operator[](int index) {
-			return MatrixRow(index, _matrix[index], _flags, _defultValue);
+			return MatrixRow( _matrix[index], _flags[index], _defultValue);
 		}
-		/*
-        MatrixRow operator()(int x, int y) {
-			return MatrixRow(index, _matrix[index], _flags, _defultValue);
+
+        T& operator()(int x, int y) {
+			return _matrix[x][y];
 		}
-		*/
+
 
 };
 

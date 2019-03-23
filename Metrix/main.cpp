@@ -16,8 +16,8 @@ int main() {
 	//if (m1.avg() < m3.avg()) // Compares the average of the elements
       //  cout << "Max value of m3 is bigger";
 
-	//m2(0, 0) = 13;
-      //  cout << m2[0][0] << " " << m2[1][0]; // Should print "13 4"
+	m2(0, 0) = 13;
+        cout << m2[0][0]<<" " << m2[1][0]; // Should print "13 4"
 
 	//try {
 	//	cout << m2 + m3 << m3 * m1;  // You can choose the format of matrix printing;
