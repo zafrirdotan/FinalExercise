@@ -7,7 +7,7 @@ class Matrix
 {
 	private:
 		T** _matrix;
-		T defultValue;
+		T _defultValue = 0;
 		void deleteMat();
 		bool** _flags;
 		class MatrixRow {
@@ -15,13 +15,13 @@ class Matrix
 				MatrixRow(int rowIndex, T* row, bool* flags, T defaultValue) :
 					_rowIndex(rowIndex), _row(row), _flags(flags), _defaultValue(defaultValue) {}
 				T& operator[](int colIndex) {
-					if (_flags[rowIndex][colIndex]) {
-						return _row[rowIndex][colIndex];
+					if (_flags[_rowIndex][colIndex]) {
+						return _row[_rowIndex][colIndex];
 					}
 					else {
-						row[colIndex] = _defaultValue;
-						flags[colIndex] = 1;
-						return row[colIndex];
+						_row[colIndex] = _defaultValue;
+						_flags[colIndex] = 1;
+						return _row[colIndex];
 					}
 				}
 			private:
@@ -42,7 +42,7 @@ class Matrix
 		int rowLength;
 		int colLength;
 		MatrixRow operator[](int index) {
-			return MatrixRow(index, _matrix[index], _flags, defaultValue);
+			return MatrixRow(index, _matrix[index], _flags, _defultValue);
 		}
 
 };

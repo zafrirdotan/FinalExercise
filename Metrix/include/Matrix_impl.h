@@ -6,10 +6,10 @@
 // Main constructor
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
-	_matrix(new T*[sizeX]), rowLength(sizeX), colLength(sizeY)
+	_matrix(new T*[sizeX]), rowLength(sizeX), colLength(sizeY),
 	_flags(new bool*[sizeX])
 	{
-		defultValue = initialValue;
+		_defultValue = initialValue;
 		for (int i = 0; i < rowLength; i++)
 		{
 			_matrix[i] = new T[colLength]; // do not answer the reuirments !!!!
@@ -52,10 +52,10 @@ template <typename T, int sizeX, int sizeY>
  };
 
 
-template <typename T, int sizeX, int sizeY>
-const T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) const {
-  return const_cast<Matrix<T, sizeX,sizeY>*>(this)->operator()(x, y);
-}
+//template <typename T, int sizeX, int sizeY>
+//const T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) const {
+  //return const_cast<Matrix<T, sizeX,sizeY>*>(this)->operator()(x, y);
+//}
 
 
  template <typename T, int sizeX, int sizeY>
@@ -74,14 +74,14 @@ const T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) const {
 template <typename T, int sizeX, int sizeY>
 T Matrix<T, sizeX, sizeY>::min()
 {
-	 T minElement = matrix[0][0];
-	 for (int i = 0; i < matrix.rowLength; i++)
+	 T minElement = _matrix[0][0];
+	 for (int i = 0; i < _matrix.rowLength; i++)
 	 {
-		 for (int j = 0; j < matrix.colLength; j++)
+		 for (int j = 0; j < _matrix.colLength; j++)
 		 {
-			 if (matrix[i][j] < minElement)
+			 if (_matrix[i][j] < minElement)
 			 {
-				 minElement = matrix[i][j];
+				 minElement = _matrix[i][j];
 			 }
 		 }
 	 }
