@@ -7,16 +7,14 @@ using namespace std;
 // Main constructor
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
-	_matrix(new T*[sizeX]), rowLength(sizeX), colLength(sizeY),
-	_flags(new bool*[sizeX])
-	{
-		_defultValue = initialValue;
+	_matrix(new T*[sizeX]), _defultValue(initialValue)
+	, rowLength(sizeX), colLength(sizeY), _flags(new bool*[sizeX]){
 		for (int i = 0; i < rowLength; i++)
 		{
 			_matrix[i] = new T[colLength];
 			_flags[i] = new bool[colLength];
 		}
-	}
+}
 
 // Default constructor
 template <typename T, int sizeX, int sizeY>
@@ -41,6 +39,32 @@ template <typename T, int sizeX, int sizeY>
     deleteMat();
     rowLength = other.rowLength;
     colLength = other.colLength;
+    _defultValue = other._defultValue;
+    _matrix=new T*[rowLength];
+    _flags =new bool*[rowLength];
+    for(int i = 0; i< rowLength; i++){
+         _matrix[i] = new T[colLength];
+         _flags[i] = new bool[colLength];
+         for(int j = 0; j<colLength; j++){
+            if(other._flags[i][j] == true){
+                _matrix[i][j] = other._matrix[i][j];
+            }else{
+                _matrix[i][j] = _defultValue;
+            }
+            _flags[i][j] = true;
+         }
+    }
+    return *this;
+
+ };
+ /*
+ template <typename T, int sizeX, int sizeY>
+  const Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator=(const Matrix& other) const {
+    if (this == &other) return *this;
+    deleteMat();
+    cout << "bubu2"<< endl;
+    rowLength = other.rowLength;
+    colLength = other.colLength;
     _matrix=new T*[rowLength];
     for(int i = 0; i< rowLength; i++){
          _matrix[i] = new T[colLength];
@@ -51,6 +75,8 @@ template <typename T, int sizeX, int sizeY>
     return *this;
 
  };
+ */
+
 /*
 template <typename T, int sizeX, int sizeY>
      T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) {
@@ -113,18 +139,18 @@ T Matrix<T, sizeX, sizeY>::min()
 
 
  template <typename T, int sizeX, int sizeY>
- const Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator*(const int &number)const{
+ Matrix<T, sizeX,sizeY> Matrix<T, sizeX,sizeY>::operator*(const int &number){
 
-    Matrix temp;
-
+    Matrix<T, sizeX,sizeY> temp;
+        //cout << "number "<<number<< endl;
     for (int i = 0; i < rowLength; ++i) {
          for (int j = 0; j < colLength; ++j) {
-             if(_flags[i][j]){
-                temp._matrix[i][j] = temp._matrix[i][j] * number;
-             }else{
-                 temp._matrix[i][j] = number * _defultValue;
-                 cout << temp._matrix[i][j]<< endl;
-             }
+            if(_flags[i][j]){
+                temp[i][j] = _matrix[i][j] * number;
+            }else{
+                 temp[i][j] = number * _defultValue;
+            }
+        //  cout << temp[i][j]<< endl;
         }
     }
   return temp;

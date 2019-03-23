@@ -38,10 +38,11 @@ class Matrix
 		~Matrix();
 		Matrix(const Matrix& other);
 		Matrix& operator=(const Matrix& other);
+		const Matrix& operator=(const Matrix& other) const;
 		T avg();
 		T min();
-        const Matrix& operator*(const int &num)const;
-		const friend  Matrix operator *(const int & number,const Matrix &matrix)
+        Matrix operator*(const int &num);
+        friend  Matrix operator *(const int &number, Matrix &matrix)
         {
          return (matrix * number);
         };
