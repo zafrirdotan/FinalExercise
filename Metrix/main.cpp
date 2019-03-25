@@ -55,7 +55,7 @@ int main() {
 	////	cout << "m6 != m5";
 
 	Matrix<Matrix<int, 3, 2>, 4, 4> composite(m1); // Creates matrix, where each element is m1;
-	//cout << composite;
+	cout << composite;
 
 	//auto_ptr<Matrix<int, 3, 3>> symetric_matrix(new SymetricMatrix<int, 3>(5)); // SymetricMatrix matrix 3*3 with default element equals to 5;
 	//(*symetric_matrix)(1, 2) = 8;

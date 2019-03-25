@@ -1,9 +1,10 @@
 
-#ifndef MATRIX_IMPL_H_INCLUDED
-#define MATRIX_IMPL_H_INCLUDED
+#ifndef MATRIX_IMPL_H
+#define MATRIX_IMPL_H
 #define BASE_DEFAULT_VALUE 0 // value used as default value in case no default value was specified
 #include "Matrix.h"
 #include <iostream>
+
 // Main constructor
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
@@ -141,26 +142,27 @@ void Matrix<T, sizeX, sizeY>::deleteMat() {
 	delete[] _flags;
 };
 
-//template <typename T, int sizeX, int sizeY>
-//ostream& operator <<(ostream& os, const Matrix& matrix) {
-//	for (int i = 0; i < rowLength; i++)
-//	{
-//		cout << "\n";
-//		for (int j = 0; j < colLength; j++)
-//		{
-//			if (_flags[i][j] == true)
-//			{
-//				cout << _matrix[i][j] << endl;
-//			}
-//			else
-//			{
-//				cout << _defaultValue << endl;
-//			}
-//		}
-//	}
-//	return os;
-//};
+template <typename T, int sizeX, int sizeY>
+ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix) {
+	cout << endl;
+	for (int i = 0; i < matrix.rowLength; i++)
+	{
+		for (int j = 0; j < matrix.colLength; j++)
+		{
+			if (matrix._flags[i][j] == true)
+			{
+				cout << matrix._matrix[i][j] << " ";
+			}
+			else
+			{
+				cout << matrix._defaultValue << " ";
+			}
+		}
+		cout << endl;
+	}
+	return os;
+};
 
-#endif // _matrixIMPL_H_INCLUDED
+#endif // MATRIX_IMPL_H
 
 

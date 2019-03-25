@@ -47,13 +47,13 @@ class Matrix
 		Matrix& operator=(const Matrix& other);
 		double avg()const;
 		T min()const;
-	/*	friend ostream& operator <<(ostream& os, const Matrix& other);*/
 		MatrixRow operator[](int index)const {
 			return MatrixRow( _matrix[index], _flags[index], _defaultValue);
 		}
 		T& operator()(int x, int y);
 
-
+		template <typename T, int sizeX, int sizeY>
+		friend ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& other);
 
 };
 
