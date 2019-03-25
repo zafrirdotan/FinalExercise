@@ -53,7 +53,6 @@ class Matrix
 		}
 		T& operator()(int x, int y);
 
-		//class SymetricMatrix : private Matrix
 
 
 };
