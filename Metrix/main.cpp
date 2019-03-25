@@ -24,8 +24,9 @@ int main() {
 	m2(0, 0) = 13;
     cout << m2[0][0]<<" " << m2[1][0]<<endl; // Should print "13 4"
 
+
 	//try {
-	//	cout << m2 + m3 << m3 * m1;  // You can choose the format of matrix printing;
+		//cout << m2 + m3 << m3 * m1;  // You can choose the format of matrix printing;
 	//	cout << m1 * m2;  // This should throw an exception
 	//}
 	//catch (const Matrix<int, 3, 2>::IllegalOperation& e) {
@@ -34,6 +35,8 @@ int main() {
 
 	Matrix<int, 3, 3> m4;
 	m4 = m3;
+	    bool bubu = m4 == m3;
+	cout<< "bubu"<< bubu<<endl;
 	for (int i = 0; i < 3; ++i)
 	{
 		for (int j = 0; j < 3; ++j)
@@ -47,12 +50,22 @@ int main() {
 
 	Matrix<int, 3, 3> m5(3);
 	m5 = 2 * m4;
+    cout << "m5[1][1] = " << m5(1, 1) << endl;
+	Matrix<int, 3, 3> m6(m4);
+	cout << "m6[1][1] = " << m6(1, 1) << endl;
+	m6 += m6;
+	cout << "m6[1][1] = " << m6(1, 1) << endl;
+	m5 += m4;
+    cout << "m5[1][1] = " << m5(1, 1) << endl;
+    m5 = m2 + m3;
+    cout << "m5[1][1] = m2[1][1] + m3[1][1]" << m5(1, 1) << "="<< m2[1][1]<<"+" <<m3[1][1]<< endl;
+     m6 = m2 * m3;
+    cout << "m6[1][1] = = m2[1][1] * m3[1][1]" << m6(1, 1) << "="<< m2[1][1]<<"*" <<m3[1][1]<< endl;
 
-	////Matrix<int, 3, 3> m6(m4);
-	////m5 += m4;
-
-	////if (m6 != m5)
-	////	cout << "m6 != m5";
+    bool bubu2 = m5 == m3;
+    cout<< "bubu2"<< bubu2<< !bubu2<<endl;
+	if (m6 != m5)
+		cout << "m6 != m5";
 
 	Matrix<Matrix<int, 3, 2>, 4, 4> composite(m1); // Creates matrix, where each element is m1;
 	//cout << composite;
@@ -60,7 +73,7 @@ int main() {
 	//auto_ptr<Matrix<int, 3, 3>> symetric_matrix(new SymetricMatrix<int, 3>(5)); // SymetricMatrix matrix 3*3 with default element equals to 5;
 	//(*symetric_matrix)(1, 2) = 8;
 	//cout << (*symetric_matrix)[1][2] << " " << (*symetric_matrix)[2][1]; // Should print "8 8"
-	 
+
 	//return 0;
 
 }
