@@ -33,7 +33,6 @@ class Matrix
 				bool* _flags;
 				T _defaultValue;
 		};
-		Matrix operator*(const int &num);
 		friend  Matrix operator *(const int &number, Matrix &matrix)
 		{
 			return (matrix * number);
@@ -48,17 +47,17 @@ class Matrix
 		double avg()const;
 		T min()const;
 		Matrix operator*(const int &num);
-		friend  Matrix operator *(const int &number, Matrix &matrix)
-		{
-			return (matrix * number);
-		};
+		//friend  Matrix operator *(const int &number, Matrix &matrix)
+		//{
+		//	return (matrix * number);
+		//};
 	/*	friend ostream& operator <<(ostream& os, const Matrix& other);*/
 		MatrixRow operator[](int index)const {
 			return MatrixRow( _matrix[index], _flags[index], _defaultValue);
 		}
 		T& operator()(int x, int y);
 
-		//class SymetricMatrix : private Matrix
+
 
 
 };
