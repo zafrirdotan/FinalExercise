@@ -58,6 +58,23 @@ template <typename T, int sizeX, int sizeY>
 	return *this;
  };
 
+ template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const int &number) {
+
+	 Matrix<T, sizeX, sizeY> temp;
+	 for (int i = 0; i < rowLength; ++i) {
+		 for (int j = 0; j < colLength; ++j) {
+			 if (_flags[i][j]) {
+				 temp[i][j] = _matrix[i][j] * number;
+			 }
+			 else {
+				 temp[i][j] = number * _defaultValue;
+			 }
+		 }
+	 }
+	 return temp;
+ }
+
 template <typename T, int sizeX, int sizeY>
      T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) {
         return (*this)[x][y];
@@ -122,7 +139,7 @@ void Matrix<T, sizeX, sizeY>::deleteMat() {
 	}
 	delete[] _matrix;
 	delete[] _flags;
-}
+};
 
 //template <typename T, int sizeX, int sizeY>
 //ostream& operator <<(ostream& os, const Matrix& matrix) {
@@ -143,7 +160,7 @@ void Matrix<T, sizeX, sizeY>::deleteMat() {
 //	}
 //	return os;
 //};
-	
+
 #endif // _matrixIMPL_H_INCLUDED
 
 

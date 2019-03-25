@@ -45,8 +45,8 @@ int main() {
 	cout << "m3[1][1] = " << m3[1][1]<<endl;
 	cout << "m4[1][1] = " << m4(1, 1) << endl;  // m4(1,1) same result as m4[1][1]
 
-	////Matrix<int, 3, 3> m5(3);
-	////m5 = 2 * m4;
+	Matrix<int, 3, 3> m5(3);
+	m5 = 2 * m4;
 
 	////Matrix<int, 3, 3> m6(m4);
 	////m5 += m4;
@@ -62,9 +62,6 @@ int main() {
 	//cout << (*symetric_matrix)[1][2] << " " << (*symetric_matrix)[2][1]; // Should print "8 8"
 	 
 	//return 0;
-
-		int x;
-		cin >> x;
 
 }
 
