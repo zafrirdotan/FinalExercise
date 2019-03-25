@@ -47,6 +47,11 @@ class Matrix
 		Matrix& operator=(const Matrix& other);
 		double avg()const;
 		T min()const;
+		Matrix operator*(const int &num);
+		friend  Matrix operator *(const int &number, Matrix &matrix)
+		{
+			return (matrix * number);
+		};
 	/*	friend ostream& operator <<(ostream& os, const Matrix& other);*/
 		MatrixRow operator[](int index)const {
 			return MatrixRow( _matrix[index], _flags[index], _defaultValue);
