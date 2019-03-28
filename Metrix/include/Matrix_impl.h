@@ -99,6 +99,11 @@ template <typename T, int sizeX, int sizeY>
  }
 template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const Matrix& other) {
+/*
+    if(rowLength != other.rowLength ||colLength !=  other.colLength){
+        IllegalOperation("bubu");
+     }
+     */
 	 Matrix<T, sizeX, sizeY> temp;
 	 for (int i = 0; i < rowLength; ++i) {
 		 for (int j = 0; j < colLength; ++j) {
@@ -115,7 +120,12 @@ template <typename T, int sizeX, int sizeY>
 	 }
 	 return temp;
  }
-
+/*
+ template <typename T, int sizeX, int sizeY>
+ const Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*( const Matrix& other) const {
+     return const_cast <Matrix<T, sizeX, sizeY>> (this)->operator*(&other);
+ }
+*/
  template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const Matrix& other) {
 	 Matrix<T, sizeX, sizeY> temp;
@@ -261,6 +271,7 @@ void Matrix<T, sizeX, sizeY>::deleteMat() {
 //	}
 //	return os;
 //};
+
 
 #endif // _matrixIMPL_H_INCLUDED
 
