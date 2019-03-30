@@ -34,18 +34,18 @@ class Matrix
 
 	public:
 		T** _matrix;
-		T _defaultValue;
-		void deleteMat();
+		bool** _flags;
 		int rowLength;
 		int colLength;
-		bool** _flags;
+		T _defaultValue;
+		void deleteMat();
 		Matrix(T initialValue);
 		Matrix();
 		~Matrix();
 		Matrix(const Matrix& other);
-		Matrix& operator=(const Matrix& other);
 		double avg()const;
 		T min()const;
+		Matrix& operator=(const Matrix& other);
 		Matrix operator*(const int &num);
 		Matrix operator*(const Matrix& other);
 		const Matrix operator*(const Matrix& other) const;
