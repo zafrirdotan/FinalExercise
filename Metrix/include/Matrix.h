@@ -6,13 +6,7 @@ using namespace std;
 template <typename T, int sizeX, int sizeY>
 class Matrix
 {
-	private:
-		T** _matrix;
-		T _defaultValue;
-		void deleteMat();
-		int rowLength;
-		int colLength;
-		bool** _flags;
+	private
 		class MatrixRow {
 			public:
 				MatrixRow( T* row, bool* flags, T defaultValue) :
@@ -39,6 +33,12 @@ class Matrix
 		};
 
 	public:
+		T** _matrix;
+		T _defaultValue;
+		void deleteMat();
+		int rowLength;
+		int colLength;
+		bool** _flags;
 		Matrix(T initialValue);
 		Matrix();
 		~Matrix();
@@ -69,7 +69,9 @@ class Matrix
         };
 
     template<typename S, int x, int y> friend class Matrix;
-    template<typename S, int x, int y> Matrix(const Matrix<S, x, y>& other):
+
+    template<typename S, int x, int y> 
+	Matrix(const Matrix<S, x, y>& other):
 	_matrix(new S*[x]), rowLength(x), colLength(y),
 	_flags(new bool*[x]), _defaultValue(other._defaultValue)
 	{
@@ -80,7 +82,8 @@ class Matrix
 		}
         };
 
-    template<typename S, int x, int y> Matrix< T, sizeX, sizeY>& operator=(Matrix< S, x, y>& other) {
+    template<typename S, int x, int y> 
+	Matrix< T, sizeX, sizeY>& operator=(Matrix< S, x, y>& other) {
         deleteMat();
         _matrix = new S*[other.rowLength];
         rowLength = other.rowLength;
@@ -101,7 +104,8 @@ class Matrix
         return *this;
     };
 
-    template<typename S, int x, int y> Matrix< T, sizeX, sizeY>& operator*(Matrix< S, x, y>& other) {
+    template<typename S, int x, int y> 
+	Matrix< T, sizeX, sizeY>& operator*(Matrix< S, x, y>& other) {
         if(other.rowLength > colLength || other.colLength > colLength){
             throw IllegalOperation("A matrix can not multiply with a bigger matrix than it's self!");
         }
