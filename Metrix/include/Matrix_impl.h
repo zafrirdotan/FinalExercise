@@ -4,6 +4,23 @@
 #define BASE_DEFAULT_VALUE 0 // value used as default value in case no default value was specified
 #include "Matrix.h"
 #include <iostream>
+
+using namespace std;
+
+template <typename T, int sizeX, int sizeY>
+void Matrix<T, sizeX, sizeY>::deleteMat() {
+	if (_matrix == NULL)
+	{
+		return;
+	}
+	for (int i = 0; i < rowLength; i++) {
+		delete[] _matrix[i];
+		delete[] _flags[i];
+	}
+	delete[] _matrix;
+	delete[] _flags;
+};
+
 // Main constructor
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
@@ -36,6 +53,52 @@ Matrix<T, sizeX,sizeY>::Matrix(const Matrix& other) {
 }
 
 template <typename T, int sizeX, int sizeY>
+double Matrix<T, sizeX, sizeY>::avg()const
+{
+	double sum = 0;
+	for (int i = 0; i< rowLength; i++) {
+		for (int j = 0; j<colLength; j++) {
+			if (_flags[i][j] == true)
+			{
+				sum += _matrix[i][j];
+			}
+			else
+			{
+				sum += _defaultValue;
+			}
+		}
+	}
+	return sum / (rowLength * colLength);
+}
+
+template <typename T, int sizeX, int sizeY>
+T Matrix<T, sizeX, sizeY>::min()const
+{
+	T minElement = _defaultValue;
+	for (int i = 0; i < rowLength; i++)
+	{
+		for (int j = 0; j < colLength; j++)
+		{
+			if (_flags[i][j] == true)
+			{
+				if (_matrix[i][j] < minElement)
+				{
+					minElement = _matrix[i][j];
+				}
+			}
+			else
+			{
+				if (_defaultValue < minElement)
+				{
+					minElement = _defaultValue;
+				}
+			}
+		}
+	}
+	return minElement;
+}
+
+template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator=(const Matrix& other){
 	if (this == &other) return *this;
 	deleteMat();
@@ -58,123 +121,61 @@ template <typename T, int sizeX, int sizeY>
 	return *this;
  };
 
- template <typename T, int sizeX, int sizeY>
+//template <typename T, int sizeX, int sizeY>
+// Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const Matrix& other) {
+//	 Matrix<T, sizeX, sizeY> temp=*this;
+//	 for (int i = 0; i < rowLength; ++i) {
+//		 for (int j = 0; j < colLength; ++j) {
+//			 for (int k = 0; k < colLength; k++)
+//			 {
+//				 temp[i][j] *= other[k][j];
+//			 }
+//		 }
+//	 }
+//	 return temp;
+// }
+
+template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const int &num) {
+	 Matrix<T, sizeX, sizeY> temp=*this;
+	 for (int i = 0; i < rowLength; ++i) {
+		 for (int j = 0; j < colLength; ++j) {
+			temp[i][j] = temp[i][j] * num;
+		 }
+	 }
+	 return temp;
+ };
+
+template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const Matrix& other) {
+	 Matrix<T, sizeX, sizeY> temp=*this;
+	 for (int i = 0; i < rowLength; i++)
+	 {
+		 for (int j = 0; j < colLength; j++)
+		 {
+			 temp[i][j] = temp[i][j] + other[i][j];
+		 }
+	 }
+	 return temp;
+ };
+
+template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator+=(const Matrix& other){
 	if (this == &other){
         *this = *this*2;
         return *this ;
 	}
-	for (int i = 0; i< rowLength; i++) {
-		for (int j = 0; j < colLength; j++) {
-            if(_flags[i][j] == true && other._flags[i][j] == true){
-                _matrix[i][j] += other._matrix[i][j];
-            }else if(_flags[i][j] == true && other._flags[i][j] == false){
-                _matrix[i][j] = _matrix[i][j] + other._defaultValue;
-            }else if(_flags[i][j] == false && other._flags[i][j] == true){
-                _matrix[i][j] = _defaultValue + other._matrix[i][j];
-            }else{
-                _matrix[i][j] = _defaultValue+ other._defaultValue;
-            }
-            _flags[i][j] = true;
-		}
-	}
+	*this = *this + other;
 	return *this;
  };
-
- template <typename T, int sizeX, int sizeY>
- Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const int &number) {
-
-	 Matrix<T, sizeX, sizeY> temp;
-	 for (int i = 0; i < rowLength; ++i) {
-		 for (int j = 0; j < colLength; ++j) {
-			 if (_flags[i][j]) {
-				 temp[i][j] = _matrix[i][j] * number;
-			 }
-			 else {
-				 temp[i][j] = number * _defaultValue;
-			 }
-		 }
-	 }
-	 return temp;
- }
+ 
 template <typename T, int sizeX, int sizeY>
- Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const Matrix& other) {
-/*
-    if(rowLength != other.rowLength ||colLength !=  other.colLength){
-        IllegalOperation("bubu");
-     }
-     */
-	 Matrix<T, sizeX, sizeY> temp;
-	 for (int i = 0; i < rowLength; ++i) {
-		 for (int j = 0; j < colLength; ++j) {
-			 if(_flags[i][j] == true && other._flags[i][j] == true){
-                temp[i][j]  = _matrix[i][j] * other._matrix[i][j];
-            }else if(_flags[i][j] == true && other._flags[i][j] == false){
-                temp[i][j] = _matrix[i][j] * other._defaultValue;
-            }else if(_flags[i][j] == false && other._flags[i][j] == true){
-                temp[i][j] = _defaultValue * other._matrix[i][j];
-            }else{
-                temp[i][j] = _defaultValue * other._defaultValue;
-            }
-		 }
-	 }
-	 return temp;
- }
-/*
- template <typename T, int sizeX, int sizeY>
- const Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*( const Matrix& other) const {
-     return const_cast <Matrix<T, sizeX, sizeY>> (this)->operator*(&other);
- }
-*/
- template <typename T, int sizeX, int sizeY>
- Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const Matrix& other) {
-	 Matrix<T, sizeX, sizeY> temp;
-	 for (int i = 0; i < rowLength; ++i) {
-		 for (int j = 0; j < colLength; ++j) {
-			 if(_flags[i][j] == true && other._flags[i][j] == true){
-                temp[i][j]  = _matrix[i][j] + other._matrix[i][j];
-            }else if(_flags[i][j] == true && other._flags[i][j] == false){
-                temp[i][j] = _matrix[i][j] + other._defaultValue;
-            }else if(_flags[i][j] == false && other._flags[i][j] == true){
-                temp[i][j] = _defaultValue + other._matrix[i][j];
-            }else{
-                temp[i][j] = _defaultValue + other._defaultValue;
-            }
-		 }
-	 }
-	 return temp;
- }
-
- template <typename T, int sizeX, int sizeY>
- Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const int &number) {
-
-	 Matrix<T, sizeX, sizeY> temp;
-	 for (int i = 0; i < rowLength; ++i) {
-		 for (int j = 0; j < colLength; ++j) {
-			 if (_flags[i][j]) {
-				 temp[i][j] = _matrix[i][j] + number;
-			 }
-			 else {
-				 temp[i][j] = number + _defaultValue;
-			 }
-		 }
-	 }
-	 return temp;
- }
-
- template <typename T, int sizeX, int sizeY>
  bool Matrix<T, sizeX, sizeY>::operator==(const Matrix& other) {
 	 for (int i = 0; i < rowLength; ++i) {
 		 for (int j = 0; j < colLength; ++j) {
-			 if(_flags[i][j] == true && other._flags[i][j] == true){
-                if(_matrix[i][j] != other._matrix[i][j]) return false;
-            }else if(_flags[i][j] == true && other._flags[i][j] == false){
-                if(_matrix[i][j] != other._defaultValue) return false;
-            }else if(_flags[i][j] == false && other._flags[i][j] == true){
-                if(_defaultValue != other._matrix[i][j]) return false;
-            }else{
-                if(_defaultValue != other._defaultValue) return false;
-            }
+			 if ((*this)[i][j] != other[i][j]){
+				 return false;
+			 }
 		 }
 	 }
 	 return true;
@@ -182,96 +183,27 @@ template <typename T, int sizeX, int sizeY>
 
 template <typename T, int sizeX, int sizeY>
  bool Matrix<T, sizeX, sizeY>::operator!=(const Matrix& other) {
-            bool res = (*this == other);
-	 return !res;
+     return !(*this == other);
  }
 
 template <typename T, int sizeX, int sizeY>
-     T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) {
+ T& Matrix<T, sizeX,sizeY>::operator()(int x,int y) {
         return (*this)[x][y];
     }
 
 template <typename T, int sizeX, int sizeY>
-double Matrix<T, sizeX, sizeY>::avg()const
- {
-	 double sum = 0;
-	 for (int i = 0; i< rowLength; i++) {
-		 for (int j = 0; j<colLength; j++) {
-			 if (_flags[i][j] == true)
-			 {
-				 sum += _matrix[i][j];
-			 }
-			 else
-			 {
-				 sum += _defaultValue;
-			 }
-		 }
-	 }
-	 return sum / (rowLength * colLength);
- }
-
-
-template <typename T, int sizeX, int sizeY>
-T Matrix<T, sizeX, sizeY>::min()const
-{
-	 T minElement = _defaultValue;
-	 for (int i = 0; i < rowLength; i++)
+ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix){
+	 cout << endl;
+	 for (int i = 0; i < matrix.rowLength; i++)
 	 {
-		 for (int j = 0; j < colLength; j++)
+		 for (int j = 0; j < matrix.colLength; j++)
 		 {
-			 if (_flags[i][j] == true)
-			 {
-				 if (_matrix[i][j] < minElement)
-				 {
-					 minElement = _matrix[i][j];
-				 }
-			 }
-			 else
-			 {
-				 if (_defaultValue < minElement)
-				 {
-					 minElement = _defaultValue;
-				 }
-			 }
+			 cout << matrix[i][j] << " ";
 		 }
+		 cout << endl;
 	 }
-	 return minElement;
- }
-
-template <typename T, int sizeX, int sizeY>
-void Matrix<T, sizeX, sizeY>::deleteMat() {
-	if (_matrix == NULL)
-	{
-		return;
-	}
-	for (int i = 0; i < rowLength; i++) {
-		delete[] _matrix[i];
-		delete[] _flags[i];
-	}
-	delete[] _matrix;
-	delete[] _flags;
-};
-
-template <typename T, int sizeX, int sizeY>
-ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix) {
-	cout << endl;
-	for (int i = 0; i < matrix.rowLength; i++)
-	{
-		for (int j = 0; j < matrix.colLength; j++)
-		{
-			if (matrix._flags[i][j] == true)
-			{
-				cout << matrix._matrix[i][j] << " ";
-			}
-			else
-			{
-				cout << matrix._defaultValue << " ";
-			}
-		}
-		cout << endl;
-	}
-	return os;
-};
+	 return os;
+ };
 
 #endif // MATRIX_IMPL_H
 

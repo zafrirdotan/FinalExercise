@@ -1,6 +1,7 @@
 #include <iostream>
+#include <memory>
 #include "include\Matrix_impl.h"
-
+#include "include\SymetricMatrix.h"
 using namespace std;
 
 template <typename T, int sizeX, int sizeY>
@@ -13,7 +14,6 @@ int main() {
 	const Matrix<int, 3, 2> m1; // Creates 3*2 matrix, with all the default elements set to 0;
 	Matrix<int, 3, 3> m2(4);  // Creates 3*3 matrix, with the default elements equals to 4;
 	const Matrix<int, 3, 3> m3 = m2; // C-py constructor may take O(MN) and not O(1).
-
 									 // min() returns the minimal value in the matrix.
 	if (min(m1) < min(m3))
 		cout << "Min value of m3 is bigger";
@@ -25,11 +25,11 @@ int main() {
 	cout << m2[0][0] << " " << m2[1][0]<<endl; // Should print "13 4"
 
 	try {
-		cout << m2 + m3 << m3 * m1;  // You can choose the format of matrix printing;
+		cout << m2 + m3 << m3 * m1;  // You can choose the format of matrix printing
 		cout << m1 * m2;  // This should throw an exception
 	}
 	catch (const Matrix<int, 3, 2>::IllegalOperation& e) {
-		cout << e.what();
+		cout << e.what()<<endl;
 	}
 
 	Matrix<int, 3, 3> m4;
@@ -52,11 +52,11 @@ int main() {
 	Matrix<Matrix<int, 3, 2>, 4, 4> composite(m1); // Creates matrix, where each element is m1;
 	cout << composite;
 
-	//auto_ptr<Matrix<int, 3, 3>> symetric_matrix(new SymetricMatrix<int, 3>(5)); // SymetricMatrix matrix 3*3 with default element equals to 5;
-	//(*symetric_matrix)(1, 2) = 8;
-	//cout << (*symetric_matrix)[1][2] << " " << (*symetric_matrix)[2][1]; // Should print "8 8"
+	auto_ptr<Matrix<int, 3, 3>> symetric_matrix(new SymetricMatrix<int, 3>(5)); // SymetricMatrix matrix 3*3 with default element equals to 5
+	(*symetric_matrix)(1, 2) = 8;
+	cout << (*symetric_matrix)[1][2] << " " << (*symetric_matrix)[2][1]; // Should print "8 8"
 
-	//return 0;
+	return 0;
 
 }
 
