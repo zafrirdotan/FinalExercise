@@ -4,7 +4,6 @@
 #define BASE_DEFAULT_VALUE 0 // value used as default value in case no default value was specified
 #include "Matrix.h"
 #include <iostream>
-
 // Main constructor
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
