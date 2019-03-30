@@ -13,8 +13,8 @@ Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
 	{
 		for (int i = 0; i < rowLength; i++)
 		{
-			_matrix[i] = new T[colLength]; 
-			_flags[i] = new bool[colLength]; 
+			_matrix[i] = new T[colLength];
+			_flags[i] = new bool[colLength];
 		}
 	}
 
@@ -60,6 +60,29 @@ template <typename T, int sizeX, int sizeY>
  };
 
  template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX,sizeY>& Matrix<T, sizeX,sizeY>::operator+=(const Matrix& other){
+	if (this == &other){
+        *this = *this*2;
+        return *this ;
+	}
+	for (int i = 0; i< rowLength; i++) {
+		for (int j = 0; j < colLength; j++) {
+            if(_flags[i][j] == true && other._flags[i][j] == true){
+                _matrix[i][j] += other._matrix[i][j];
+            }else if(_flags[i][j] == true && other._flags[i][j] == false){
+                _matrix[i][j] = _matrix[i][j] + other._defaultValue;
+            }else if(_flags[i][j] == false && other._flags[i][j] == true){
+                _matrix[i][j] = _defaultValue + other._matrix[i][j];
+            }else{
+                _matrix[i][j] = _defaultValue+ other._defaultValue;
+            }
+            _flags[i][j] = true;
+		}
+	}
+	return *this;
+ };
+
+ template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const int &number) {
 
 	 Matrix<T, sizeX, sizeY> temp;
@@ -74,6 +97,94 @@ template <typename T, int sizeX, int sizeY>
 		 }
 	 }
 	 return temp;
+ }
+template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const Matrix& other) {
+/*
+    if(rowLength != other.rowLength ||colLength !=  other.colLength){
+        IllegalOperation("bubu");
+     }
+     */
+	 Matrix<T, sizeX, sizeY> temp;
+	 for (int i = 0; i < rowLength; ++i) {
+		 for (int j = 0; j < colLength; ++j) {
+			 if(_flags[i][j] == true && other._flags[i][j] == true){
+                temp[i][j]  = _matrix[i][j] * other._matrix[i][j];
+            }else if(_flags[i][j] == true && other._flags[i][j] == false){
+                temp[i][j] = _matrix[i][j] * other._defaultValue;
+            }else if(_flags[i][j] == false && other._flags[i][j] == true){
+                temp[i][j] = _defaultValue * other._matrix[i][j];
+            }else{
+                temp[i][j] = _defaultValue * other._defaultValue;
+            }
+		 }
+	 }
+	 return temp;
+ }
+/*
+ template <typename T, int sizeX, int sizeY>
+ const Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*( const Matrix& other) const {
+     return const_cast <Matrix<T, sizeX, sizeY>> (this)->operator*(&other);
+ }
+*/
+ template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const Matrix& other) {
+	 Matrix<T, sizeX, sizeY> temp;
+	 for (int i = 0; i < rowLength; ++i) {
+		 for (int j = 0; j < colLength; ++j) {
+			 if(_flags[i][j] == true && other._flags[i][j] == true){
+                temp[i][j]  = _matrix[i][j] + other._matrix[i][j];
+            }else if(_flags[i][j] == true && other._flags[i][j] == false){
+                temp[i][j] = _matrix[i][j] + other._defaultValue;
+            }else if(_flags[i][j] == false && other._flags[i][j] == true){
+                temp[i][j] = _defaultValue + other._matrix[i][j];
+            }else{
+                temp[i][j] = _defaultValue + other._defaultValue;
+            }
+		 }
+	 }
+	 return temp;
+ }
+
+ template <typename T, int sizeX, int sizeY>
+ Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const int &number) {
+
+	 Matrix<T, sizeX, sizeY> temp;
+	 for (int i = 0; i < rowLength; ++i) {
+		 for (int j = 0; j < colLength; ++j) {
+			 if (_flags[i][j]) {
+				 temp[i][j] = _matrix[i][j] + number;
+			 }
+			 else {
+				 temp[i][j] = number + _defaultValue;
+			 }
+		 }
+	 }
+	 return temp;
+ }
+
+ template <typename T, int sizeX, int sizeY>
+ bool Matrix<T, sizeX, sizeY>::operator==(const Matrix& other) {
+	 for (int i = 0; i < rowLength; ++i) {
+		 for (int j = 0; j < colLength; ++j) {
+			 if(_flags[i][j] == true && other._flags[i][j] == true){
+                if(_matrix[i][j] != other._matrix[i][j]) return false;
+            }else if(_flags[i][j] == true && other._flags[i][j] == false){
+                if(_matrix[i][j] != other._defaultValue) return false;
+            }else if(_flags[i][j] == false && other._flags[i][j] == true){
+                if(_defaultValue != other._matrix[i][j]) return false;
+            }else{
+                if(_defaultValue != other._defaultValue) return false;
+            }
+		 }
+	 }
+	 return true;
+ }
+
+template <typename T, int sizeX, int sizeY>
+ bool Matrix<T, sizeX, sizeY>::operator!=(const Matrix& other) {
+            bool res = (*this == other);
+	 return !res;
  }
 
 template <typename T, int sizeX, int sizeY>
