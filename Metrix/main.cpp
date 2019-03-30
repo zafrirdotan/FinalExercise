@@ -19,7 +19,7 @@ int main() {
 		cout << "Min value of m3 is bigger";
 
 	if (m1.avg() < m3.avg()) // Compares the average of the elements
-		cout << "Max value of m3 is bigger";
+		cout << "Avg value of m3 is bigger";
 
 	m2(0, 0) = 13;
 	cout << m2[0][0] << " " << m2[1][0]<<endl; // Should print "13 4"

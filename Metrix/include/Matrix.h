@@ -6,7 +6,7 @@ using namespace std;
 template <typename T, int sizeX, int sizeY>
 class Matrix
 {
-private:
+protected:
 	bool** _flags;
 	class MatrixRow {
 	public:
@@ -47,8 +47,6 @@ public:
 	T min()const;
 	Matrix& operator=(const Matrix& other);
 	Matrix operator*(const int &num);
-	////Matrix operator*(const Matrix& other);
-	//const Matrix operator*(const Matrix& other) const;
 	Matrix operator+(const Matrix& other);
 	Matrix& operator+=(const Matrix& other);
 	bool operator==(const Matrix& other);
@@ -57,7 +55,7 @@ public:
 
 	template <typename T, int sizeX, int sizeY>
 	friend ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix);
-	MatrixRow operator[](int index)const {
+	virtual MatrixRow operator[](int index)const {
 		return MatrixRow(_matrix[index], _flags[index], _defaultValue);
 	}
 

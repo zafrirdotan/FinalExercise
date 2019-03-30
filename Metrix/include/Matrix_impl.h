@@ -58,14 +58,7 @@ double Matrix<T, sizeX, sizeY>::avg()const
 	double sum = 0;
 	for (int i = 0; i< rowLength; i++) {
 		for (int j = 0; j<colLength; j++) {
-			if (_flags[i][j] == true)
-			{
-				sum += _matrix[i][j];
-			}
-			else
-			{
-				sum += _defaultValue;
-			}
+			sum += (*this)[i][j];
 		}
 	}
 	return sum / (rowLength * colLength);
@@ -79,19 +72,9 @@ T Matrix<T, sizeX, sizeY>::min()const
 	{
 		for (int j = 0; j < colLength; j++)
 		{
-			if (_flags[i][j] == true)
+			if ((*this)[i][j] < minElement)
 			{
-				if (_matrix[i][j] < minElement)
-				{
-					minElement = _matrix[i][j];
-				}
-			}
-			else
-			{
-				if (_defaultValue < minElement)
-				{
-					minElement = _defaultValue;
-				}
+				minElement = (*this)[i][j];
 			}
 		}
 	}
@@ -120,20 +103,6 @@ template <typename T, int sizeX, int sizeY>
 	}
 	return *this;
  };
-
-//template <typename T, int sizeX, int sizeY>
-// Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const Matrix& other) {
-//	 Matrix<T, sizeX, sizeY> temp=*this;
-//	 for (int i = 0; i < rowLength; ++i) {
-//		 for (int j = 0; j < colLength; ++j) {
-//			 for (int k = 0; k < colLength; k++)
-//			 {
-//				 temp[i][j] *= other[k][j];
-//			 }
-//		 }
-//	 }
-//	 return temp;
-// }
 
 template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator*(const int &num) {
@@ -204,6 +173,8 @@ ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix){
 	 }
 	 return os;
  };
+
+
 
 #endif // MATRIX_IMPL_H
 
