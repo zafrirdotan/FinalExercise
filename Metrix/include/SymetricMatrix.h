@@ -35,17 +35,21 @@ public:
 			}
 		}
 	}
-
-	MatrixRow operator[](int index)const {
-		T* row = new T[size];
-		bool* flags = new bool[size];
-		for (int col = 0; col < size; col++)
-		{
-			row[col] = *(_symetrix_matrix[index][col]);
-			flags[col] = *(_symetric_flags[index][col]);
+	~SymetricMatrix() {
+		if (_symetrix_matrix == NULL) {
+			return;
 		}
-		return MatrixRow(row, flags, _defaultValue);
+		for (int i = 0; i < rowLength; i++) {
+			delete[] _symetrix_matrix[i];
+			delete[] _symetric_flags[i];
+		}
+		delete[] _symetrix_matrix;
+		delete[] _symetric_flags;
+	};
+	MatrixRow operator[](int index)const {
+		return MatrixRow(_matrix[index], _flags[index], _defaultValue, 2, _symetrix_matrix[index], _symetric_flags[index]);
 	}
+
 };
 
 #endif // SymetricMatríx
