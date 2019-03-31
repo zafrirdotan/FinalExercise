@@ -1,6 +1,7 @@
 bin
 obj
 debug
+release
 *.sln
 *.vcxproj
 *.vcxproj.filters
