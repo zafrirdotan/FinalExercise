@@ -48,4 +48,4 @@ public:
 	}
 };
 
-#endif // SymetricMatrix
+#endif // SymetricMatríx

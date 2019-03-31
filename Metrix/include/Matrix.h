@@ -7,7 +7,10 @@ template <typename T, int sizeX, int sizeY>
 class Matrix
 {
 protected:
+	// _flags marks weather an index has a value\was initialied (true) or it has a garbage value in if (false)
 	bool** _flags;
+
+	// class MatrixRow is part of the implementation of operator [][]
 	class MatrixRow {
 	public:
 		MatrixRow(T* row, bool* flags, T defaultValue) :
@@ -28,8 +31,9 @@ protected:
 		bool* _flags;
 		T _defaultValue;
 	};
-	friend Matrix operator *(const int &number, Matrix &matrix)
-	{
+
+	// enables to multiply number with matrix when the number os on the right to the matrix
+	friend Matrix operator *(const int &number, Matrix &matrix) {
 		return (matrix * number);
 	};
 
@@ -55,10 +59,13 @@ public:
 
 	template <typename T, int sizeX, int sizeY>
 	friend ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix);
+	
+	//operator [][], implemented by the class MatrixRow (in private)
 	virtual MatrixRow operator[](int index)const {
 		return MatrixRow(_matrix[index], _flags[index], _defaultValue);
 	}
 
+	//throws exception
 	class IllegalOperation : public std::exception {
 		const char* msg;
 	public:
@@ -68,19 +75,19 @@ public:
 		}
 	};
 
+	// allows to implement operators that excepts two matrixes of different templates
 	template<typename S, int x, int y>
 	friend class Matrix;
 
 	template<typename S, int x, int y>
 	const Matrix<T, sizeX, y> operator*(const Matrix<S, x, y>& other) const {
 		if (other.rowLength != colLength) {
-			throw IllegalOperation("These matrix can't be multiplied according to math laws !");
+			throw IllegalOperation("These matrixes can't be multiplied according to math laws !");
 		}
 		const Matrix<T, sizeX, y> temp(0);
 		for (int i = 0; i < sizeX; ++i) {
 			for (int j = 0; j < other.colLength; ++j) {
-				for (int k = 0; k < colLength; k++)
-				{
+				for (int k = 0; k < colLength; k++) {
 					temp[i][j] += ((*this)[i][k] * other[k][j]);
 				}
 			}

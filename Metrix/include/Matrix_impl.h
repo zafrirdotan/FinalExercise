@@ -9,8 +9,7 @@ using namespace std;
 
 template <typename T, int sizeX, int sizeY>
 void Matrix<T, sizeX, sizeY>::deleteMat() {
-	if (_matrix == NULL)
-	{
+	if (_matrix == NULL){
 		return;
 	}
 	for (int i = 0; i < rowLength; i++) {
@@ -25,10 +24,8 @@ void Matrix<T, sizeX, sizeY>::deleteMat() {
 template <typename T, int sizeX, int sizeY>
 Matrix<T, sizeX, sizeY>::Matrix(T initialValue) :
 	_matrix(new T*[sizeX]), rowLength(sizeX), colLength(sizeY),
-	_flags(new bool*[sizeX]), _defaultValue(initialValue)
-	{
-		for (int i = 0; i < rowLength; i++)
-		{
+	_flags(new bool*[sizeX]), _defaultValue(initialValue) {
+		for (int i = 0; i < rowLength; i++) {
 			_matrix[i] = new T[colLength];
 			_flags[i] = new bool[colLength];
 		}
@@ -40,8 +37,7 @@ Matrix<T, sizeX,sizeY>::Matrix(): Matrix(BASE_DEFAULT_VALUE){}
 
 // Destructor
 template <typename T, int sizeX, int sizeY>
-Matrix<T, sizeX,sizeY>::~Matrix()
-{
+Matrix<T, sizeX,sizeY>::~Matrix() {
     deleteMat();
 }
 
@@ -53,8 +49,7 @@ Matrix<T, sizeX,sizeY>::Matrix(const Matrix& other) {
 }
 
 template <typename T, int sizeX, int sizeY>
-double Matrix<T, sizeX, sizeY>::avg()const
-{
+double Matrix<T, sizeX, sizeY>::avg()const {
 	double sum = 0;
 	for (int i = 0; i< rowLength; i++) {
 		for (int j = 0; j<colLength; j++) {
@@ -65,15 +60,11 @@ double Matrix<T, sizeX, sizeY>::avg()const
 }
 
 template <typename T, int sizeX, int sizeY>
-T Matrix<T, sizeX, sizeY>::min()const
-{
+T Matrix<T, sizeX, sizeY>::min()const {
 	T minElement = _defaultValue;
-	for (int i = 0; i < rowLength; i++)
-	{
-		for (int j = 0; j < colLength; j++)
-		{
-			if ((*this)[i][j] < minElement)
-			{
+	for (int i = 0; i < rowLength; i++) {
+		for (int j = 0; j < colLength; j++)	{
+			if ((*this)[i][j] < minElement)	{
 				minElement = (*this)[i][j];
 			}
 		}
@@ -94,8 +85,7 @@ template <typename T, int sizeX, int sizeY>
 		_matrix[i] = new T[colLength];
 		_flags[i] = new bool[colLength];
 		for (int j = 0; j < colLength; j++) {
-			if (other._flags[i][j] == true)
-			{
+			if (other._flags[i][j] == true)	{
 				_matrix[i][j] = other._matrix[i][j];
 				_flags[i][j] = other._flags[i][j];
 			}
@@ -118,8 +108,7 @@ template <typename T, int sizeX, int sizeY>
 template <typename T, int sizeX, int sizeY>
  Matrix<T, sizeX, sizeY> Matrix<T, sizeX, sizeY>::operator+(const Matrix& other) {
 	 Matrix<T, sizeX, sizeY> temp=*this;
-	 for (int i = 0; i < rowLength; i++)
-	 {
+	 for (int i = 0; i < rowLength; i++) {
 		 for (int j = 0; j < colLength; j++)
 		 {
 			 temp[i][j] = temp[i][j] + other[i][j];
@@ -163,10 +152,8 @@ template <typename T, int sizeX, int sizeY>
 template <typename T, int sizeX, int sizeY>
 ostream& operator <<(ostream& os, const Matrix<T, sizeX, sizeY>& matrix){
 	 cout << endl;
-	 for (int i = 0; i < matrix.rowLength; i++)
-	 {
-		 for (int j = 0; j < matrix.colLength; j++)
-		 {
+	 for (int i = 0; i < matrix.rowLength; i++)	{
+		 for (int j = 0; j < matrix.colLength; j++)	 {
 			 cout << matrix[i][j] << " ";
 		 }
 		 cout << endl;

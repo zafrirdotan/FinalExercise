@@ -16,10 +16,10 @@ int main() {
 	const Matrix<int, 3, 3> m3 = m2; // C-py constructor may take O(MN) and not O(1).
 									 // min() returns the minimal value in the matrix.
 	if (min(m1) < min(m3))
-		cout << "Min value of m3 is bigger";
+		cout << "Min value of m3 is bigger" << endl;
 
 	if (m1.avg() < m3.avg()) // Compares the average of the elements
-		cout << "Avg value of m3 is bigger";
+		cout << "Avg value of m3 is bigger" << endl;
 
 	m2(0, 0) = 13;
 	cout << m2[0][0] << " " << m2[1][0]<<endl; // Should print "13 4"
